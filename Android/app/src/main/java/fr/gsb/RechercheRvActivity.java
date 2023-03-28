@@ -8,9 +8,26 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import fr.gsb.rv.entites.Praticien;
+import fr.gsb.rv.entites.RapportVisite;
+import fr.gsb.rv.entites.Visiteur;
+import fr.gsb.rv.technique.Ip;
 import fr.gsb.rv.technique.Session;
 
 
@@ -19,7 +36,7 @@ public class RechercheRvActivity extends AppCompatActivity {
     Button retour ;
     TextView session ;
 
-    private static final String [] lesMois = {"1","2","3","4","5","6","7","8","9","10","11","12"} ;
+    private static final String [] lesMois = {"01","02","03","04","05","06","07","08","09","10","11","12"} ;
     Spinner mois ;
 
     private static final String [] lesAnnees = {"2017","2018","2019","2020","2021","2022","2023"} ;
@@ -54,13 +71,6 @@ public class RechercheRvActivity extends AppCompatActivity {
         );
         annees.setAdapter(aaAnnees);
 
-        Bundle resultat = new Bundle() ;
-        resultat.putString("result", mois.toString() + " " + annees.toString());
-
-        Intent intentionEnvoyer = new Intent(this,ListeRvActicity.class) ;
-        intentionEnvoyer.putExtras(resultat);
-        startActivity(intentionEnvoyer);
-
         session.setText(Session.getSession().getLeVisiteur().getNom() + " " + Session.getSession().getLeVisiteur().getPrenom());
         Log.i("GSB_CONSULTE_ACTIVITY", "Création de l'activité de consultation");
     }
@@ -71,11 +81,74 @@ public class RechercheRvActivity extends AppCompatActivity {
         Log.i("GSB_CONSULTE_ACTIVITY", "Retour a l'acceuil Ok");
     }
 
-    public void liste(View vue){
-        Intent liste = new Intent(this,ListeRvActicity.class);
-        startActivity(liste);
-        Log.i("GSB_CONSULTE_ACTIVITY", "Afficher la liste Ok");
+    public void liste(View vue) {
+        try {
+            String selectedAnnee = annees.getSelectedItem().toString();
+            String selectedMois = mois.getSelectedItem().toString();
+
+            Response.Listener<JSONArray> ecouteurReponse = new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    try {
+                        JSONObject jsonObject = response.getJSONObject(0);
+
+                        RapportVisite rapportVisite = new RapportVisite();
+
+                        rapportVisite.setNumero(jsonObject.getInt("rap_num"));
+                        rapportVisite.setDateVisite(jsonObject.getString("rap_date_visite"));
+                        rapportVisite.setBilan(jsonObject.getString("rap_bilan"));
+                        //rapportVisite.setMotif(jsonObject.getString("rap_autre_motif"));
+                        //rapportVisite.setCoefConfiance(jsonObject.getInt("rap_coef_confiance"));
+
+
+                        Log.v("GSB_CONSULTE_ACTIVITY", "200 Ok");
+
+                        Bundle bundle = new Bundle() ;
+                        bundle.putString("year", selectedAnnee);
+                        bundle.putString("month", selectedMois);
+
+                        bundle.putInt("numero", rapportVisite.getNumero());
+                        bundle.putString("date_visite", rapportVisite.getDateVisite());
+                        bundle.putString("bilan",rapportVisite.getBilan());
+                        //bundle.putString("motif", rapportVisite.getMotif());
+                        //bundle.putInt("coef", rapportVisite.getCoefConfiance());
+
+                        Intent intentionEnvoyer = new Intent(getApplicationContext(), ListeRvActicity.class) ;
+                        intentionEnvoyer.putExtras(bundle);
+                        startActivity(intentionEnvoyer);
+
+                    } catch(JSONException e) {
+                        Log.e("GSB_CONSULTE_ACTIVITY", "JSON : " + e.getMessage());
+                        Toast.makeText(getApplicationContext(), "Erreur lors de la récupération des données.", Toast.LENGTH_LONG).show();
+                    }
+                }
+            };
+
+            Response.ErrorListener ecouteurError = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("GSB_CONSULTE_ACTIVITY", "Erreur HTTP :" + " " + error.getMessage());
+                    Toast.makeText(getApplicationContext(), "Erreur lors de la récupération des données.", Toast.LENGTH_LONG).show();
+                }
+            };
+
+            JsonArrayRequest requete = new JsonArrayRequest(
+                    Request.Method.GET,
+                    "http://" + Ip.ip + "/rapports/" + Session.getSession().getLeVisiteur().getMatricule() + "/" + selectedMois + "/" + selectedAnnee,
+                    null,
+                    ecouteurReponse,
+                    ecouteurError
+            );
+
+            RequestQueue fileRequetes = Volley.newRequestQueue(this);
+            fileRequetes.add(requete);
+        } catch (Exception e) {
+            Log.e("GSB_CONSULTE_ACTIVITY", "Exception : " + e.getMessage());
+            Toast.makeText(getApplicationContext(), "Erreur lors de la récupération des données.", Toast.LENGTH_LONG).show();
+        }
     }
+
+
 
 
 }

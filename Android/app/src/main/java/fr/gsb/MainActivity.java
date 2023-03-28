@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 }catch(JSONException e){
                     Log.e("GSB_MAIN_ACTIVITY", "JSON : " + e.getMessage());
                     System.out.println("catch");
+                    Toast.makeText(getApplicationContext(), "Erreur lors de la saisie des données.", Toast.LENGTH_LONG).show();
 
                 }
 
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.e("GSB_MAIN_ACTIVITY", "Erreur HTTP :" + " " + error.getMessage());
                 System.out.println("erreur");
+                Toast.makeText(getApplicationContext(), "Erreur lors de la saisie des données.", Toast.LENGTH_LONG).show();
             }
         };
 

@@ -37,6 +37,7 @@
         <activity android:name=".MenuRvActivity"/>
         <activity android:name=".RechercheRvActivity"/>
         <activity android:name=".ListeRvActicity"/>
+        <activity android:name=".VisuEchantActivity"/>
     </application>
 
 </manifest>
