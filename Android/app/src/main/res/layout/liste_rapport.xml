@@ -7,8 +7,8 @@
 
     <Button
         android:id="@+id/retourForm"
-        android:layout_width="264dp"
-        android:layout_height="108dp"
+        android:layout_width="159dp"
+        android:layout_height="83dp"
         android:onClick="retour"
         android:text="Retour"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,8 +31,9 @@
         app:layout_constraintVertical_bias="0.015" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:layout_width="1273dp"
+        android:layout_height="95dp"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,6 +58,19 @@
             tools:layout_editor_absoluteY="427dp" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/echanteBtn"
+        android:layout_width="159dp"
+        android:layout_height="83dp"
+        android:text="Echantillons offerts"
+        android:onClick="echantOffert"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.013"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.978" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
