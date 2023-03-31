@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     EditText login, mdp ;
     TextView message ;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,4 +130,6 @@ public class MainActivity extends AppCompatActivity {
         message.setText("");
         Log.i("GSB_MAIN_ACTIVITY", "Initialisation des champs");
     }
+
+
 }

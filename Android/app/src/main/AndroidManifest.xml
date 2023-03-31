@@ -38,6 +38,7 @@
         <activity android:name=".RechercheRvActivity"/>
         <activity android:name=".ListeRvActicity"/>
         <activity android:name=".VisuEchantActivity"/>
+        <activity android:name="SaisieRvActivity"/>
     </application>
 
 </manifest>

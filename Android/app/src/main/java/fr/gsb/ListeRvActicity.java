@@ -86,24 +86,35 @@ public class ListeRvActicity extends AppCompatActivity implements AdapterView.On
                 public void onResponse(JSONArray response) {
                     try {
                         JSONObject jsonObject = response.getJSONObject(0);
-
+                        List<Offrir> offr = new ArrayList<>();
                         for(int i =0 ;i<response.length(); i++ ) {
+                            JSONObject element = response.getJSONObject(i);
+                            String off_quantite = element.getString("off_quantite");
+                            String med_nomcommercial = element.getString("med_nomcommercial");
+
                             Offrir offrir = new Offrir();
+                            offrir.setOff_quantite(off_quantite);
+                            offrir.setMed_depotlegal(med_nomcommercial);
 
-                            offrir.setOff_quantite(jsonObject.getString("off_quantite"));
-                            offrir.setMed_depotlegal(jsonObject.getString("med_nomcommercial"));
-
-                            List offr = new ArrayList<>() ;
+                            System.out.println(offrir);
+                            offr.add(offrir);
 
                         }
 
                         Log.v("GSB_LISTE_ACTIVITY", "200 Ok");
 
 
-                        Bundle bundle = new Bundle() ;
+                        Bundle bundle = new Bundle();
+                        ArrayList<String> offQuantiteList = new ArrayList<>();
+                        ArrayList<String> medNomcommercialList = new ArrayList<>();
 
-                        bundle.putString("quantite", offrir.getOff_quantite());
-                        bundle.putString("nom",offrir.getMed_depotlegal());
+                        for (Offrir offrir : offr) {
+                            offQuantiteList.add(offrir.getOff_quantite());
+                            medNomcommercialList.add(offrir.getMed_depotlegal());
+                        }
+
+                        bundle.putStringArrayList("offQuantiteList", offQuantiteList);
+                        bundle.putStringArrayList("medNomcommercialList", medNomcommercialList);
 
                         Intent intentionEnvoyer = new Intent(getApplicationContext(), VisuEchantActivity.class) ;
                         intentionEnvoyer.putExtras(bundle);
@@ -111,7 +122,7 @@ public class ListeRvActicity extends AppCompatActivity implements AdapterView.On
 
                     } catch(JSONException e) {
                         Log.e("GSB_LISTE_ACTIVITY", "JSON : " + e.getMessage());
-                        Toast.makeText(getApplicationContext(), "Erreur lors de la récupération des données.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Assurer vous de bien séléctionner le numéro de rapport", Toast.LENGTH_LONG).show();
                     }
                 }
             };
@@ -120,7 +131,7 @@ public class ListeRvActicity extends AppCompatActivity implements AdapterView.On
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.e("GSB_LISTE_ACTIVITY", "Erreur HTTP :" + " " + error.getMessage());
-                    Toast.makeText(getApplicationContext(), "Erreur lors de la récupération des données.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Assurer vous de bien séléctionner le numéro de rapport", Toast.LENGTH_LONG).show();
                 }
             };
 
@@ -136,7 +147,7 @@ public class ListeRvActicity extends AppCompatActivity implements AdapterView.On
             fileRequetes.add(requete);
         } catch (Exception e) {
             Log.e("GSB_LISTE_ACTIVITY", "Exception : " + e.getMessage());
-            Toast.makeText(getApplicationContext(), "Erreur lors de la récupération des données.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Assurer vous de bien séléctionner le numéro de rapport", Toast.LENGTH_LONG).show();
         }
     }   /*
         Bundle numero = this.getIntent().getExtras() ;

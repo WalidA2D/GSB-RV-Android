@@ -40,4 +40,9 @@ public class MenuRvActivity extends AppCompatActivity {
         Intent consulte = new Intent(this,RechercheRvActivity.class) ;
         startActivity(consulte);
     }
+
+    public void saisie(View vue){
+        Intent consulte = new Intent(this,SaisieRvActivity.class) ;
+        startActivity(consulte);
+    }
 }

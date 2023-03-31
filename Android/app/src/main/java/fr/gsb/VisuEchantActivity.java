@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 import fr.gsb.rv.technique.Session;
 
 public class VisuEchantActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -31,20 +33,23 @@ public class VisuEchantActivity extends AppCompatActivity implements AdapterView
         session = findViewById(R.id.name);
 
 
-        Bundle quantite = this.getIntent().getExtras() ;
-        String listeQuantite= quantite.getString("quantite") ;
+        Bundle bundle = this.getIntent().getExtras();
+        ArrayList<String> offQuantiteList = bundle.getStringArrayList("offQuantiteList");
+        ArrayList<String> medNomcommercialList = bundle.getStringArrayList("medNomcommercialList");
 
-        Bundle depot = this.getIntent().getExtras() ;
-        String listedepot = depot.getString("nom") ;
+        String[] medoc = new String[offQuantiteList.size()];
 
-        String[] medoc = {listeQuantite,listedepot};
+        for(int i = 0; i < offQuantiteList.size(); i++) {
+            medoc[i] = offQuantiteList.get(i) + " - " + medNomcommercialList.get(i);
+        }
 
         ArrayAdapter<String> adaptateur = new ArrayAdapter<String>(
-                this ,
+                this,
                 android.R.layout.simple_list_item_1,
                 medoc
-        ) ;
+        );
         liste.setAdapter(adaptateur);
+
         liste.setOnItemClickListener(this);
 
 
@@ -62,17 +67,14 @@ public class VisuEchantActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemClick(AdapterView<?> adapterView, View vue, int position, long l) {
 
-        Bundle quantite = this.getIntent().getExtras() ;
-        String listeQuantite= quantite.getString("quantite") ;
+        Bundle bundle = this.getIntent().getExtras();
+        ArrayList<String> offQuantiteList = bundle.getStringArrayList("offQuantiteList");
+        ArrayList<String> medNomcommercialList = bundle.getStringArrayList("medNomcommercialList");
 
-        Bundle depot = this.getIntent().getExtras() ;
-        String listedepot = depot.getString("nom") ;
+        String selectedOffQuantite = offQuantiteList.get(position);
+        String selectedMedNomcommercial = medNomcommercialList.get(position);
 
-        String[] rapports = { listeQuantite, listedepot};
-
-        String rapportSelectionne = rapports[position] ;
-        medoc.setText(rapportSelectionne);
-
-
+        String selectedMedoc = selectedOffQuantite + " - " + selectedMedNomcommercial;
+        medoc.setText(selectedMedoc);
     }
 }
