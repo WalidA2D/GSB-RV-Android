@@ -18,7 +18,7 @@ Avant de pouvoir utiliser l'application, vous devez installer les composants sui
 
   sudo apt install python3-pip
 
-###Flask
+### Flask
 
   pip install flask
 
