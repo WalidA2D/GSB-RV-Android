@@ -49,24 +49,24 @@ public class ListeRvActicity extends AppCompatActivity implements AdapterView.On
         rapport = (TextView)findViewById(R.id.rapport);
         liste = (ListView)findViewById(R.id.listeRapport);
 
-        Bundle numero = this.getIntent().getExtras() ;
-        String listeNumero= String.valueOf(numero.getInt("numero"));
+        Bundle bundle = this.getIntent().getExtras();
+        ArrayList<String> num = bundle.getStringArrayList("numero");
+        ArrayList<String> date = bundle.getStringArrayList("date_visite");
+        ArrayList<String> bilan = bundle.getStringArrayList("bilan");
 
-        Bundle date = this.getIntent().getExtras() ;
-        String listeDate= date.getString("date_visite") ;
+        String[] rapp = new String[num.size()];
 
-        Bundle bilan = this.getIntent().getExtras() ;
-        String listeBilan= bilan.getString("bilan") ;
-
-
-        String[] rapports = {listeNumero,listeDate,listeBilan};
+        for(int i = 0; i < num.size(); i++) {
+            rapp[i] = num.get(i) + " - " + date.get(i) + " - " + bilan.get(i);
+        }
 
         ArrayAdapter<String> adaptateur = new ArrayAdapter<String>(
-                this ,
+                this,
                 android.R.layout.simple_list_item_1,
-                rapports
-        ) ;
+                rapp
+        );
         liste.setAdapter(adaptateur);
+
         liste.setOnItemClickListener(this);
 
         session.setText(Session.getSession().getLeVisiteur().getNom() + " " + Session.getSession().getLeVisiteur().getPrenom());
@@ -160,19 +160,13 @@ public class ListeRvActicity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View vue, int position, long l) {
-        Bundle date = this.getIntent().getExtras() ;
-        String listeDate= date.getString("date_visite") ;
+        Bundle bundle = this.getIntent().getExtras();
+        ArrayList<String> num = bundle.getStringArrayList("numero");
 
-        Bundle bilan = this.getIntent().getExtras() ;
-        String listeBilan= bilan.getString("bilan") ;
+        String numero = num.get(position);
 
-        Bundle numero = this.getIntent().getExtras() ;
-        String listeNumero= String.valueOf(numero.getInt("numero"));
-
-        String[] rapports = {listeNumero,listeDate,listeBilan};
-
-        String rapportSelectionne = rapports[position] ;
-        rapport.setText(rapportSelectionne);
+        String selectedRapport = String.valueOf(numero);
+        rapport.setText(selectedRapport);
 
     }
 }

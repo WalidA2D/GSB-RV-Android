@@ -74,7 +74,7 @@ public class VisuEchantActivity extends AppCompatActivity implements AdapterView
         String selectedOffQuantite = offQuantiteList.get(position);
         String selectedMedNomcommercial = medNomcommercialList.get(position);
 
-        String selectedMedoc = selectedOffQuantite + " - " + selectedMedNomcommercial;
+        String selectedMedoc = selectedMedNomcommercial;
         medoc.setText(selectedMedoc);
     }
 }

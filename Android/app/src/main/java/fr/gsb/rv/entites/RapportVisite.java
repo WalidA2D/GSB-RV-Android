@@ -114,6 +114,6 @@ public class RapportVisite {
 
     @Override
     public String toString() {
-        return "numero : " + this.getNumero() + "\n dateVisite : " + dateVisite + "\n dateRedaction : " + dateRedaction + "\n bilan : " + bilan + "\n motif : " + motif + "\n coefConfiance : " + coefConfiance + "\n lu : " + lu + "\n LeVisiteur : " + leVisiteur.getMatricule() + " " + leVisiteur .getNom() + "\n LePraticien : ";
+        return "numero : " + this.getNumero() + "\n dateVisite : " + dateVisite + "\n dateRedaction : " + dateRedaction + "\n bilan : " + bilan + "\n motif : " + motif + "\n coefConfiance : " + coefConfiance + "\n lu : " + lu + "\n LePraticien : ";
     }
 }

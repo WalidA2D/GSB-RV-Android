@@ -24,6 +24,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import fr.gsb.rv.entites.Offrir;
 import fr.gsb.rv.entites.Praticien;
 import fr.gsb.rv.entites.RapportVisite;
 import fr.gsb.rv.entites.Visiteur;
@@ -91,25 +95,45 @@ public class RechercheRvActivity extends AppCompatActivity {
                 public void onResponse(JSONArray response) {
                     try {
                         JSONObject jsonObject = response.getJSONObject(0);
+                        List<RapportVisite> rapp = new ArrayList<>();
+                        for(int i =0 ;i<response.length(); i++ ) {
+                            JSONObject element = response.getJSONObject(i);
+                            String num = element.getString("rap_num");
+                            String date = element.getString("rap_date_visite");
+                            String bilan = element.getString("rap_bilan");
 
-                        RapportVisite rapportVisite = new RapportVisite();
+                            RapportVisite rapportVisite = new RapportVisite();
+                            rapportVisite.setNumero(Integer.parseInt(num));
+                            rapportVisite.setDateVisite(date);
+                            rapportVisite.setBilan(bilan);
 
-                        rapportVisite.setNumero(jsonObject.getInt("rap_num"));
-                        rapportVisite.setDateVisite(jsonObject.getString("rap_date_visite"));
-                        rapportVisite.setBilan(jsonObject.getString("rap_bilan"));
+                            System.out.println(rapportVisite);
+                            rapp.add(rapportVisite);
+
+                        }
                         //rapportVisite.setMotif(jsonObject.getString("rap_autre_motif"));
                         //rapportVisite.setCoefConfiance(jsonObject.getInt("rap_coef_confiance"));
 
+                        Bundle bundle = new Bundle();
+                        ArrayList<String> num = new ArrayList<>();
+                        ArrayList<String> date = new ArrayList<>();
+                        ArrayList<String> bilan = new ArrayList<>();
+
+                        for (RapportVisite rapportVisite : rapp) {
+                            num.add(String.valueOf(rapportVisite.getNumero()));
+                            date.add(rapportVisite.getDateVisite());
+                            bilan.add(rapportVisite.getBilan());
+                        }
 
                         Log.v("GSB_CONSULTE_ACTIVITY", "200 Ok");
 
-                        Bundle bundle = new Bundle() ;
-                        bundle.putString("year", selectedAnnee);
-                        bundle.putString("month", selectedMois);
+                        Bundle bundlee = new Bundle() ;
+                        bundlee.putString("year", selectedAnnee);
+                        bundlee.putString("month", selectedMois);
 
-                        bundle.putInt("numero", rapportVisite.getNumero());
-                        bundle.putString("date_visite", rapportVisite.getDateVisite());
-                        bundle.putString("bilan",rapportVisite.getBilan());
+                        bundle.putStringArrayList("numero",num );
+                        bundle.putStringArrayList("date_visite", date);
+                        bundle.putStringArrayList("bilan", bilan);
                         //bundle.putString("motif", rapportVisite.getMotif());
                         //bundle.putInt("coef", rapportVisite.getCoefConfiance());
 
