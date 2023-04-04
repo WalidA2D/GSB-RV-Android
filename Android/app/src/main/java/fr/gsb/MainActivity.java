@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Log.e("GSB_MAIN_ACTIVITY", "Erreur HTTP :" + " " + error.getMessage());
                 System.out.println("erreur");
-                Toast.makeText(getApplicationContext(), "Erreur lors de la saisie des données.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Erreur lors de la récuperation des données.", Toast.LENGTH_LONG).show();
             }
         };
 

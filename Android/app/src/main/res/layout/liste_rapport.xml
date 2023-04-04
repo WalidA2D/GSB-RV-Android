@@ -32,7 +32,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="1273dp"
+        android:layout_width="match_parent"
         android:layout_height="95dp"
         android:orientation="horizontal"
         android:padding="16dp"
@@ -58,6 +58,7 @@
             tools:layout_editor_absoluteY="427dp" />
 
     </LinearLayout>
+
 
     <Button
         android:id="@+id/echanteBtn"

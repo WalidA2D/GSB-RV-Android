@@ -91,21 +91,25 @@ def getMedicaments() :
 		reponse.status_code = 404
 	return reponse
 	
-@app.route( '/rapports' , methods = [ 'POST' ] ) 
-def addRapportVisite() :
-	unRapport = json.loads( request.data )
-	numRapport = modeleGSBRV.enregistrerRapportVisite( 	unRapport[ 'matricule' ] , 
-																unRapport[ 'praticien' ] ,
-																unRapport[ 'visite' ] ,
-																unRapport[ 'bilan' ] )
-	
-	reponse = make_response( '' )												
-	if numRapport != None :
-		reponse.headers[ 'Location' ] = '/rapports/%s/%d' % ( unRapport[ 'matricule' ] , numRapport )
-		reponse.status_code = 201
-	else :
-		reponse.status_code = 409
-	return reponse
+@app.route('/rapports', methods=['POST']) 
+def addRapportVisite():
+    unRapport = json.loads(request.data)
+    numRapport = modeleGSBRV.enregistrerRapportVisite(
+        unRapport['matricule'], 
+        unRapport['praticien'], 
+        unRapport['visite'], 
+        unRapport['bilan'],
+        unRapport['coef_confiance'], 
+        unRapport['mot_num']
+    )
+    reponse = make_response('')
+    if numRapport is not None:
+        reponse.headers['Location'] = '/rapports/%s/%d' % (unRapport['matricule'], numRapport)
+        reponse.status_code = 201
+    else:
+        reponse.status_code = 409
+    return reponse
+
 	
 
 @app.route( '/rapports/echantillons/<matricule>/<numRapport>' , methods = [ 'POST' ] )

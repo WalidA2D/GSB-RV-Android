@@ -48,48 +48,51 @@ def seConnecter( matricule , mdp ) :
 	except :
 		return None
 		
-def getRapportsVisite( matricule , mois , annee ) :
-	try :
-		curseur = getConnexionBD().cursor()
-		requete = '''
-					select 
-						rv.rap_num ,
-						rv.rap_date_visite ,
-						rv.rap_bilan ,
-						p.pra_nom ,
-						p.pra_prenom ,
-						p.pra_cp ,
-						p.pra_ville
-					from RapportVisite as rv
-					inner join Praticien as p
-					on p.pra_num = rv.pra_num
-					where rv.vis_matricule = %s
-					and MONTH(rv.rap_date_visite) = %s
-					and YEAR(rv.rap_date_visite) = %s
-					order by rv.rap_date_visite
-				'''
+def getRapportsVisite(matricule, mois, annee):
+    try:
+        curseur = getConnexionBD().cursor()
+        requete = '''
+                    select 
+                        rv.rap_num,
+                        rv.rap_date_visite,
+                        rv.rap_bilan,
+                        rv.mot_num,
+                        rv.rap_coef_confiance,
+                        p.pra_nom,
+                        p.pra_prenom,
+                        p.pra_cp,
+                        p.pra_ville
+                    from RapportVisite as rv
+                    inner join Praticien as p on p.pra_num = rv.pra_num
+                    where rv.vis_matricule = %s
+                    and MONTH(rv.rap_date_visite) = %s
+                    and YEAR(rv.rap_date_visite) = %s
+                    order by rv.rap_date_visite
+                '''
 
-		curseur.execute( requete , ( matricule , mois , annee ) )
-		
-		enregistrements = curseur.fetchall()
-		
-		rapports = []
-		for unEnregistrement in enregistrements :
-			unRapport = {}
-			unRapport[ 'rap_num' ] = unEnregistrement[ 0 ]
-			unRapport[ 'rap_date_visite' ] = '%04d-%02d-%02d' % ( unEnregistrement[ 1 ].year , unEnregistrement[ 1 ].month , unEnregistrement[ 1 ].day )
-			unRapport[ 'rap_bilan' ] = unEnregistrement[ 2 ]
-			unRapport[ 'pra_nom' ] = unEnregistrement[ 3 ]
-			unRapport[ 'pra_prenom' ] = unEnregistrement[ 4 ]
-			unRapport[ 'pra_cp' ] = unEnregistrement[ 5 ]
-			unRapport[ 'pra_ville' ] = unEnregistrement[ 5 ]
-			rapports.append( unRapport )
-			
-		curseur.close()
-		return rapports
-		
-	except :
-		return None
+        curseur.execute(requete, (matricule, mois, annee))
+        enregistrements = curseur.fetchall()
+        
+        rapports = []
+        for unEnregistrement in enregistrements:
+            unRapport = {}
+            unRapport['rap_num'] = unEnregistrement[0]
+            unRapport['rap_date_visite'] = '%04d-%02d-%02d' % (unEnregistrement[1].year, unEnregistrement[1].month, unEnregistrement[1].day)
+            unRapport['rap_bilan'] = unEnregistrement[2]
+            unRapport['mot_num'] = unEnregistrement[3]
+            unRapport['rap_coef_confiance'] = unEnregistrement[4]
+            unRapport['pra_nom'] = unEnregistrement[5]
+            unRapport['pra_prenom'] = unEnregistrement[6]
+            unRapport['pra_cp'] = unEnregistrement[7]
+            unRapport['pra_ville'] = unEnregistrement[8]
+            rapports.append(unRapport)
+
+        curseur.close()
+        return rapports
+
+    except:
+        return None
+
 		
 def getEchantillonsOfferts( matricule , numRapportVisite ) :
 	
@@ -206,31 +209,25 @@ def genererNumeroRapportVisite( matricule ) :
 		return None
 
 
-def enregistrerRapportVisite( matricule , numPraticien , dateVisite , bilan ) :
-	
-	numRapportVisite = genererNumeroRapportVisite( matricule )
-	
-	if numRapportVisite != None :
-	
-		try:
-			curseur = getConnexionBD().cursor()
+def enregistrerRapportVisite(matricule, numPraticien, dateVisite, bilan, coefConfiance, motNum):
+    numRapportVisite = genererNumeroRapportVisite(matricule)
+    if numRapportVisite is not None:
+        try:
+            curseur = getConnexionBD().cursor()
+            requete = '''
+                insert into RapportVisite(vis_matricule, rap_num, rap_date_visite, rap_date_redaction, rap_bilan, rap_coef_confiance, mot_num, pra_num)
+                values (%s, %s, %s, NOW(), %s, %s, %s, %s)
+                '''
+            curseur.execute(requete, (matricule, numRapportVisite, dateVisite, bilan, coefConfiance, motNum, numPraticien))
+            connexionBD.commit()
+            curseur.close()
+            return numRapportVisite
+        except:
+            return None
+    else:
+        return None
 
-			requete = '''
-				insert into RapportVisite( vis_matricule , rap_num , rap_date_visite , rap_bilan , pra_num )
-				values( %s , %s , %s , %s , %s )
-				'''
 
-			curseur.execute( requete, ( matricule , numRapportVisite , dateVisite , bilan , numPraticien ) )
-			connexionBD.commit()
-			curseur.close()
-
-			return numRapportVisite
-
-		except:
-			return None
-
-	else :
-		return None
 		
 		
 def enregistrerEchantillonsOfferts( matricule , numRapport , echantillons ) :
