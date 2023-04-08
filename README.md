@@ -1,6 +1,23 @@
 # GSB-RV-Android
+<img src="https://user-images.githubusercontent.com/102319778/230720966-cb56e373-2646-4edc-bde0-08bfc8e55956.png" alt="Logo GSB-RV-Android" style="float: right; width: 100px;">
 
-Ce projet est une application Android qui permet aux médecins de prendre des rendez-vous pour leurs patients dans le système de gestion de rendez-vous de la société pharmaceutique GSB. 
+Application de saisie des rapports de visite. 
+
+<div style="display: flex; justify-content: center;">
+  <img src="https://user-images.githubusercontent.com/102319778/230720506-2c5a5f4b-2f0b-4247-aefe-ba3ceae62bee.png" alt="Image 1" style="width:200px; margin-right: 10px;">
+  
+  <img src="https://user-images.githubusercontent.com/102319778/230720514-ec6f2d89-ee1d-4d70-be89-7f36ab3638ab.png" alt="Image 2" style="width:200px; margin-right: 10px;">
+  
+  <img src="https://user-images.githubusercontent.com/102319778/230720516-2c136058-7578-4005-bb60-46eaaf0eddd2.png" alt="Image 3" style="width:200px;">
+</div>
+
+## Contexte
+
+- [GSB - Fiche descriptive](https://github.com/WalidA2D/GSB-RV-Android/files/11183244/01-GSB-AppliRV-FicheDescriptive.pdf)
+- [GSB - Cas d'utilisation](https://github.com/WalidA2D/GSB-RV-Android/files/11183245/02-GSB-AppliRV-Visiteur-UC.pdf)
+- [GSB - Modèle Entité-Association](https://github.com/WalidA2D/GSB-RV-Android/files/11183247/03-GSB-AppliRV-MEA.pdf)
+- [GSB - Diagramme de navigation](https://github.com/WalidA2D/GSB-RV-Android/files/11183248/04-GSB-AppliRV-Navigation.pdf)
+- [GSB - Documentation API / Arborescence](https://github.com/WalidA2D/GSB-RV-Android/files/11183249/05-GSB-AppliRV-Documentation-API.pdf)
 
 ## Installation
 
@@ -9,7 +26,7 @@ Avant de pouvoir utiliser l'application, vous devez installer les composants sui
 ### SGBDR - MariaDB
 
   ```sudo apt install mariadb-server```
-  
+
 ### Python3
 
   ```sudo apt install python3```
