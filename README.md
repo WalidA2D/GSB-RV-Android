@@ -13,11 +13,11 @@ Application de saisie des rapports de visite.
 
 ## Contexte
 
-- [GSB - Fiche descriptive](https://github.com/WalidA2D/GSB-RV-Android/files/11183306/01-GSB-AppliRV-FicheDescriptive.2.pdf)
-- [GSB - Cas d'utilisation](https://github.com/WalidA2D/GSB-RV-Android/files/11183245/02-GSB-AppliRV-Visiteur-UC.pdf)
-- [GSB - Modèle Entité-Association](https://github.com/WalidA2D/GSB-RV-Android/files/11183247/03-GSB-AppliRV-MEA.pdf)
-- [GSB - Diagramme de navigation](https://github.com/WalidA2D/GSB-RV-Android/files/11183248/04-GSB-AppliRV-Navigation.pdf)
-- [GSB - Documentation API / Arborescence](https://github.com/WalidA2D/GSB-RV-Android/files/11183249/05-GSB-AppliRV-Documentation-API.pdf)
+- [GSB - Fiche descriptive](https://github.com/WalidA2D/GSB-RV-DOC/blob/main/01-GSB-AppliRV-FicheDescriptive.pdf)
+- [GSB - Cas d'utilisation](https://github.com/WalidA2D/GSB-RV-DOC/blob/main/02-GSB-AppliRV-Visiteur-UC.pdf)
+- [GSB - Modèle Entité-Association](https://github.com/WalidA2D/GSB-RV-DOC/blob/main/03-GSB-AppliRV-MEA.pdf)
+- [GSB - Diagramme de navigation](https://github.com/WalidA2D/GSB-RV-DOC/blob/main/04-GSB-AppliRV-Navigation.pdf)
+- [GSB - Documentation API / Arborescence](https://github.com/WalidA2D/GSB-RV-DOC/blob/main/05-GSB-AppliRV-Documentation-API.pdf)
 
 ## Installation
 
