@@ -23,25 +23,25 @@ Application de saisie des rapports de visite.
 
 Avant de pouvoir utiliser l'application, vous devez installer les composants suivants :
 
-### SGBDR - MariaDB
+1. ### SGBDR - MariaDB
 
-  ```sudo apt install mariadb-server```
+  - ```sudo apt install mariadb-server```
 
-### Python3
+2. ### Python3
 
-  ```sudo apt install python3```
+  - ```sudo apt install python3```
 
-### pip3
+3. ### pip3
 
-  ```sudo apt install python3-pip```
+  - ```sudo apt install python3-pip```
 
-### Flask
+4. ### Flask
 
-  ```pip install flask```
+  - ```pip install flask```
 
-### mysql-connector
+5. ### mysql-connector
 
-  ```pip install mysql-connector```
+  - ```pip install mysql-connector```
 
 Assurez-vous que tous les composants sont installés avant de poursuivre.
 
