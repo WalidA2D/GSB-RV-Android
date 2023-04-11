@@ -1,5 +1,5 @@
 ## GSB-RV-Android <img src="https://user-images.githubusercontent.com/102319778/230720966-cb56e373-2646-4edc-bde0-08bfc8e55956.png" alt="Logo GSB-RV-Android" style="float: right; width: 100px;">
-   ![Python version](https://img.shields.io/badge/Python-3.10.6-blue) ![Java version](https://img.shields.io/badge/Java-11.0.13-navy) ![XML version](https://img.shields.io/badge/XML-1.0-orange) ![Flask version](https://img.shields.io/badge/Flask-2.2.3-pink) ![MariaDB version](https://img.shields.io/badge/MariDB-15.1-red) ![JUnit version](https://img.shields.io/badge/JUnit-4.13.2-white) ![SDK version](https://img.shields.io/badge/SDK-32-Gold) ![Gradle version](https://img.shields.io/badge/Gradle-7.4-yellow) 
+   ![Python version](https://img.shields.io/badge/Python-3.10.6-blue) ![Java version](https://img.shields.io/badge/Java-11.0.13-navy) ![XML version](https://img.shields.io/badge/XML-1.0-orange) ![Flask version](https://img.shields.io/badge/Flask-2.2.3-pink) ![MariaDB version](https://img.shields.io/badge/MariaDB-15.1-red) ![JUnit version](https://img.shields.io/badge/JUnit-4.13.2-white) ![SDK version](https://img.shields.io/badge/SDK-32-Gold) ![Gradle version](https://img.shields.io/badge/Gradle-7.4-yellow) 
 
 Application de saisie des rapports de visite. 
 
